@@ -1,0 +1,14 @@
+.cursor-style {
+  text-transform: capitalize;
+  ::after {
+    content: ' |';
+    color: black;
+    animation: Blink 0.5s step-start infinite;
+  }
+}
+
+@keyframes Blink {
+  50% {
+    opacity: 0;
+  }
+}
