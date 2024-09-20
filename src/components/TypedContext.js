@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './TypedContext.css';
 
-const superpower = [
+const travelContext = [
   'Wild-life safari',
   'Mountain Trekking',
   'Thrilling experience',
@@ -15,14 +15,14 @@ const Phase = {
   DELETING: 'DELETING',
 };
 
-const useTypedContext = (superpower) => {
+const useTypedContext = (travelContext) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [typedContent, setTypedContent] = useState('');
   const [phase, setPhase] = useState(Phase.TYPING);
   useEffect(() => {
     switch (phase) {
       case Phase.TYPING: {
-        const Value = superpower[selectedIndex].slice(
+        const Value = travelContext[selectedIndex].slice(
           0,
           typedContent.length + 1,
         );
@@ -42,12 +42,12 @@ const useTypedContext = (superpower) => {
       case Phase.DELETING: {
         if (!typedContent) {
           let nextInd = selectedIndex + 1;
-          setSelectedIndex(superpower[nextInd] ? nextInd : 0);
+          setSelectedIndex(travelContext[nextInd] ? nextInd : 0);
           setPhase(Phase.TYPING);
           return;
         }
 
-        const Value = superpower[selectedIndex].slice(
+        const Value = travelContext[selectedIndex].slice(
           0,
           typedContent.length - 1,
         );
@@ -63,13 +63,14 @@ const useTypedContext = (superpower) => {
         }, 100);
         return () => clearTimeout(timeTyped);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typedContent, phase]);
 
   return typedContent;
 };
 
 const TypedContext = () => {
-  const typingContext = useTypedContext(superpower);
+  const typingContext = useTypedContext(travelContext);
   return <div className="cursor-style">{typingContext}</div>;
 };
 
